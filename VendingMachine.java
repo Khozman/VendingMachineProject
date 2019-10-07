@@ -47,19 +47,19 @@ public class VendingMachine {
                     saltySnacksCounter+= newStock;
                     stockCounter+= newStock;
                 System.out.println("You have added " + newStock + " " + product.getName() + ". \nChocolates stock = " +
-                        saltySnacksCounter + ". \nCurrent stock = " + stockCounter + "\n----------------------------------");
+                        saltySnacksCounter + ". \nCurrent stock = " + stockCounter + ". \n----------------------------------");
                 } else if (product instanceof SoftDrink){
 
                     softDrinksCounter+= newStock;
                     stockCounter+= newStock;
                 System.out.println("You have added " + newStock + " " + product.getName() + ". \nSoft drinks stock = " +
-                        softDrinksCounter + ". \nCurrent stock = " + stockCounter + "\n----------------------------------");
+                        softDrinksCounter + ". \nCurrent stock = " + stockCounter + ". \n----------------------------------");
                 } else if (product instanceof Chocolate){
 
                     chocolateCounter+= newStock;
                     stockCounter += newStock;
                 System.out.println("You have added " + newStock + " " + product.getName() + ". \nChocolates stock = " +
-                        chocolateCounter + ". \nCurrent stock = " + stockCounter + "\n----------------------------------");
+                        chocolateCounter + ". \nCurrent stock = " + stockCounter + ". \n----------------------------------");
                 }
             }
 
@@ -68,16 +68,20 @@ public class VendingMachine {
     public static void main(String[] args) {
         VendingMachine vendingMachine = new VendingMachine();
         Product saltySnacks = new SaltySnack("Fritos");
+        Product softDrinks = new SoftDrink("Coke");
+        Product chocolate = new Chocolate("Cadbury");
 
         vendingMachine.addStock(saltySnacks,6);
+        vendingMachine.addStock(softDrinks,3);
+        vendingMachine.addStock(chocolate, 1);
 
         try {
             vendingMachine.buy(saltySnacks);
             vendingMachine.buy(saltySnacks);
             vendingMachine.buy(saltySnacks);
-            vendingMachine.buy(saltySnacks);
-            vendingMachine.buy(saltySnacks);
-            vendingMachine.buy(saltySnacks);
+            vendingMachine.buy(softDrinks);
+            vendingMachine.buy(chocolate);
+            vendingMachine.buy(chocolate);
         } catch (ProductNotFoundException e) {
             e.printStackTrace();
         }
