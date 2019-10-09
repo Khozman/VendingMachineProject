@@ -34,7 +34,11 @@ public class VendingMachine {
                 System.out.println("You have bought a "+ product.getName());
             }
         } else {
-            throw new InvalidProductException();
+            try {
+                throw new InvalidProductException();
+            }catch (InvalidProductException e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -70,19 +74,21 @@ public class VendingMachine {
         Product saltySnacks = new SaltySnack("Fritos");
         Product softDrinks = new SoftDrink("Coke");
         Product chocolate = new Chocolate("Cadbury");
+        Fruits fruits = new Fruits("Orange");
 
         vendingMachine.addStock(saltySnacks,6);
         vendingMachine.addStock(softDrinks,3);
         vendingMachine.addStock(chocolate, 1);
+//        vendingMachine.addStock(fruits,6);
 
         try {
             vendingMachine.buy(saltySnacks);
             vendingMachine.buy(saltySnacks);
-            vendingMachine.buy(saltySnacks);
             vendingMachine.buy(softDrinks);
             vendingMachine.buy(chocolate);
+            vendingMachine.buy(fruits);
             vendingMachine.buy(chocolate);
-        } catch (ProductNotFoundException e) {
+        } catch ( InvalidProductException | ProductNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -121,32 +127,44 @@ class Chocolate extends Product{
     }
 }
 
+class Fruits extends Product{
+    String name;
+
+    Fruits(String name) {
+       super(name);
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
 class ProductNotFoundException  extends Exception {
-    ProductNotFoundException(){
-        System.out.println("Product not found!");
+    ProductNotFoundException(String msg){
+        super(msg);
     }
 }
 
 class InvalidProductException extends RuntimeException{
     InvalidProductException(){
-        System.out.println("The product entered is not valid!");
+        super("The product entered is not valid!");
     }
 }
 
 class SoftDrinksOutOfStock extends ProductNotFoundException{
     SoftDrinksOutOfStock(){
-        System.out.println("Soft Drinks out of stock!");
+        super("Soft Drinks out of stock!");
     }
 }
 
 class SaltySnackOutOfStock extends ProductNotFoundException{
     SaltySnackOutOfStock(){
-        System.out.println("Salty snacks out of stock!");
+        super("Salty snacks out of stock!");
     }
 }
 
 class ChocolateOutOfStock extends ProductNotFoundException{
     ChocolateOutOfStock(){
-        System.out.println("Chocolate out of stocok!");
+        super("Chocolate out of stock!");
     }
 }
